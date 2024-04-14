@@ -25,32 +25,32 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Product> getUser(@PathVariable Integer id) {
+	public ResponseEntity<Product> getProduct(@PathVariable Integer id) {
 		Product product = productService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(product);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Product>> getUser() {
+	public ResponseEntity<List<Product>> getProduct() {
 		List<Product> list = productService.findAll();
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 	@PostMapping
-	public ResponseEntity<Product> createUser(@RequestBody Product product) {
+	public ResponseEntity<Product> createProduct(@RequestBody Product product) {
 		productService.create(product);
 		return ResponseEntity.status(HttpStatus.CREATED).body(product);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Product> updateUser(@PathVariable Integer id, @RequestBody Product product) {
+	public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product product) {
 		productService.update(id, product);
 		product.setProductId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(product);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
+	public ResponseEntity<String> deleteProduct(@PathVariable Integer id) {
 		try {
 			productService.delete(id);
 			return ResponseEntity.status(HttpStatus.OK).body("Delete Product");
