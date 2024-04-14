@@ -2,7 +2,7 @@ package com.leon.springboot.service;
 
 import java.util.List;
 
-import com.leon.springboot.model.User;
+import com.leon.springboot.db1.model.User;
 
 public interface UserService {
 	
@@ -16,6 +16,6 @@ public interface UserService {
 	
 	void update(Integer userId, User user);
 	
-	void delete(Integer userId);
+	void delete(Integer userId) throws Exception ;
 
 }

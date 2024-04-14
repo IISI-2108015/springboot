@@ -1,4 +1,4 @@
-package com.leon.springboot.model;
+package com.leon.springboot.db1.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "USER")
+@Table(name = "User")
 public class User {
 
 	@Id

@@ -1,4 +1,4 @@
-package com.leon.springboot.dao.impl;
+package com.leon.springboot.db1.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +15,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import com.leon.springboot.dao.UserDao;
-import com.leon.springboot.model.User;
+import com.leon.springboot.db1.dao.UserDao;
+import com.leon.springboot.db1.model.User;
 import com.leon.springboot.rowmapper.UserRowMapper;
 
 import jakarta.persistence.EntityManager;

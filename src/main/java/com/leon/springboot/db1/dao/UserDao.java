@@ -1,8 +1,8 @@
-package com.leon.springboot.dao;
+package com.leon.springboot.db1.dao;
 
 import java.util.List;
 
-import com.leon.springboot.model.User;
+import com.leon.springboot.db1.model.User;
 
 public interface UserDao {
 	

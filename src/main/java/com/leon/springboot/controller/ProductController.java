@@ -14,46 +14,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leon.springboot.db1.model.User;
-import com.leon.springboot.service.UserService;
+import com.leon.springboot.db2.model.Product;
+import com.leon.springboot.service.ProductService;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/product")
+public class ProductController {
 
 	@Autowired
-	private UserService userService;
+	private ProductService productService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getUser(@PathVariable Integer id) {
-		User user = userService.findById(id);
-		return ResponseEntity.status(HttpStatus.OK).body(user);
+	public ResponseEntity<Product> getUser(@PathVariable Integer id) {
+		Product product = productService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(product);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<User>> getUser() {
-		List<User> list = userService.findAll();
+	public ResponseEntity<List<Product>> getUser() {
+		List<Product> list = productService.findAll();
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		userService.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+	public ResponseEntity<Product> createUser(@RequestBody Product product) {
+		productService.create(product);
+		return ResponseEntity.status(HttpStatus.CREATED).body(product);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
-		userService.update(id, user);
-		user.setUserId(id);
-		return ResponseEntity.status(HttpStatus.OK).body(user);
+	public ResponseEntity<Product> updateUser(@PathVariable Integer id, @RequestBody Product product) {
+		productService.update(id, product);
+		product.setProductId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(product);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
 		try {
-			userService.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Delete User");
+			productService.delete(id);
+			return ResponseEntity.status(HttpStatus.OK).body("Delete Product");
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Delete Failed");
 		}
