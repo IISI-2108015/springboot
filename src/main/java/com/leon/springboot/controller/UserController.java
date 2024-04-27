@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leon.springboot.db1.model.User;
+import com.leon.springboot.security.config.UserAuthority;
 import com.leon.springboot.service.UserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(value = "http://localhost:5173") // 接受跨域請求
 public class UserController {
 
 	@Autowired
@@ -38,8 +41,14 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<User> createUser(@RequestBody User user) {
-		userService.save(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+		User temp = userService.findByUserName(user.getUserName());
+		if(temp != null) {
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+		}else {
+			user.setAuthority(UserAuthority.NORMAL.toString());
+			userService.save(user);
+			return ResponseEntity.status(HttpStatus.CREATED).body(user);
+		}
 	}
 
 	@PutMapping("/{id}")

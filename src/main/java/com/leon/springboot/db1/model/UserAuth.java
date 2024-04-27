@@ -9,14 +9,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "User")
-public class User {
+public class UserAuth {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +27,10 @@ public class User {
 	private String password;
 	
 	@Column(name="authority")
-	private String authority;
+	private UserAuthority authority;
 	
-	@Transient
     private boolean enabled = true;
-	@Transient
     private boolean premium = false;
-	@Transient
     private LocalDate trailExpiration;
 	
 }
