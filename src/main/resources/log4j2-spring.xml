@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
+<Configuration status="warn">
+    <Properties>
+        <Property name="basePath">D:/testLog/logs</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="fileLogger" fileName="${basePath}/ecol-log.log" filePattern="${basePath}/%-d{yyyyMMdd}/ecol-log-%d{yyyy-MM-dd-HH}-%i.log.zip">
+        	<!-- fileName：檔案路徑名稱；filePattern：滾動後檔案路徑名稱  ${date:yyyy-MM} -->
+            <PatternLayout pattern="%d [%t] [%X{sessionId}] | %X{login} | %X{reqURI} | %-40.40c{1} [%-5p] %m%n" />
+            <!-- PatternLayout：輸出格式；%d：時間格式、%t：	輸出產生該日誌事件的線程名、%X：可以獲取一些登入者的資訊 -->
+            <!-- %-40.40c：若名字空間長度小於40，則右邊用空格填充；若名字空間長度超過40，截去多餘字元 -->
+<!--            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <!-- 匹配的等級才通過 -->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<!-- 依時間滾動，interval：多久滾動一次，看filePattern裡面設定的時間，%d{yyyy-MM-dd-HH}代表每小時滾動一次；modulate：用來調整時間，假設01:00滾動一次，下一次就會是02:00 -->
+                <SizeBasedTriggeringPolicy size="20 MB" />
+				<!-- 依檔案大小滾動 -->
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="9" max="1000" />
+            <!-- compressionLevel：壓縮級別，0最低9最高；max：用來指定同一個檔案夾下最多有幾個記錄檔時開始刪除最舊的 -->
+        </RollingFile>
+        <Console name="console-lo4cal" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%t] [%X{sessionId}] | %X{login} | %X{reqURI} | %-40.40c{1} [%-5p] %m%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+			<!-- Trace < Debug < Info < Warn < Error < Fatal -->
+            <AppenderRef ref="fileLogger" />
+            <AppenderRef ref="console-lo4cal" />
+            <!-- 對應到上面的 name -->
+        </Root>
+        <!-- 另外設定 -->
+        <!-- 只會顯示Error、Fatal -->
+        <Logger name="com.leon.springboot.controller.test.TestController" level="error" />
+        <Logger name="org.hibernate" level="error" />
+    </Loggers>
+</Configuration>

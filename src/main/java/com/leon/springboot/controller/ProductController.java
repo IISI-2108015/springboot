@@ -1,7 +1,10 @@
 package com.leon.springboot.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.leon.springboot.controller.test.TestController;
 import com.leon.springboot.db2.model.Product;
 import com.leon.springboot.service.ProductService;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+
+	private Logger log = LogManager.getLogger(ProductController.class);
 
 	@Autowired
 	private ProductService productService;
@@ -57,6 +63,23 @@ public class ProductController {
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Delete Failed");
 		}
+	}
+	
+	@GetMapping("/IO/{level}")
+	public ResponseEntity<String> throwIOException(@PathVariable String level) throws IOException {
+		switch (level) {
+		case "debug":
+			log.debug("【DEBUG】 Product IOException");
+		case "info":
+			log.info("【INFO】 Product IOException");
+		case "warn":
+			log.warn("【WARN】 Product IOException");
+		case "error":
+			log.error("【ERROR】 Product IOException");
+		case "fatal":
+			log.fatal("【FATAL】 Product IOException");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body("Log 紀錄 OK !" + level);
 	}
 	
 }

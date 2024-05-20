@@ -30,7 +30,7 @@ public class TokenService {
     @Autowired
     private AuthenticationProvider authenticationProvider;
 
-    @PostConstruct
+    @PostConstruct // 在Spring啟動的時候就會先建立好
     private void init() {
         String key = "VincentIsRunningBlogForProgrammingLearner";
         secretKey = Keys.hmacShaKeyFor(key.getBytes());

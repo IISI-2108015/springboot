@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.leon.springboot.db1.model.User;
+import com.leon.springboot.security.config.UserAuthority;
 
 public class UserRowMapper implements RowMapper<User> {
 
@@ -18,6 +19,8 @@ public class UserRowMapper implements RowMapper<User> {
 		// 將resultSet的數據轉換到Student中
 		user.setUserId(resultSet.getInt("userId"));
 		user.setUserName(resultSet.getString("userName"));
+		user.setPassword(resultSet.getString("password"));
+		user.setAuthority(resultSet.getString("authority"));
 		return user;
 	}
 
