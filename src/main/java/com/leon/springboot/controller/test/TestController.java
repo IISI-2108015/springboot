@@ -40,7 +40,6 @@ public class TestController {
 
 	@GetMapping("/SQL/{level}")
 	public ResponseEntity<String> throwSQLException(@PathVariable String level) throws SQLException {
-		// test
 		switch (level) {
 		case "trace":
 			log.trace("【TRACE】 SQLException");
