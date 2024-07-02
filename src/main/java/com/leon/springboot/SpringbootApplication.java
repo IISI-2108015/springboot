@@ -8,7 +8,6 @@ public class SpringbootApplication {
 
 	public static void main(String[] args) {
 		
-		// test
 		// gitlabTest
 		SpringApplication.run(SpringbootApplication.class, args);
 	}
